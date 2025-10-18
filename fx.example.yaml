@@ -1,0 +1,5 @@
+base: USD
+rates:
+  EUR: 0.92
+  GBP: 0.78
+  JPY: 145.0

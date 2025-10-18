@@ -1,0 +1,16 @@
+models:
+  gpt-5-mini:
+    prompt_per_million: 0.25
+    completion_per_million: 2.00
+  sonnet-3-7:
+    prompt_per_million: 3.00
+    completion_per_million: 15.00
+  gemini-flash:
+    prompt_per_million: 0.10
+    completion_per_million: 0.40
+  llama-4:
+    prompt_per_million: 0.15
+    completion_per_million: 0.60
+  my-internal-model:
+    prompt_per_million: 0.07
+    completion_per_million: 0.11

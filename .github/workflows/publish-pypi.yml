@@ -1,0 +1,43 @@
+name: Publish to PyPI
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install build tools
+        run: |
+          python -m pip install -U pip
+          pip install build twine pytest
+
+      - name: Run tests
+        run: |
+          pytest -q
+
+      - name: Build dists (sdist + wheel)
+        run: python -m build
+
+      - name: Twine check
+        run: twine check dist/*
+
+      # Variante A: API-Token (einfach & überall nutzbar)
+      - name: Publish to PyPI (API token)
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+
+    permissions:
+      id-token: write   # NUR für OIDC / Trusted Publishing nötig
